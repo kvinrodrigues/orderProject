@@ -7,7 +7,6 @@ import py.com.poraplz.cursomc.entities.Categoria;
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 
-    public Categoria getById();
+    public Categoria getById(Long id);
 
-    public Categoria getByName();
 }

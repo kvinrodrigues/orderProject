@@ -1,6 +1,6 @@
 package py.com.poraplz.cursomc.dto.category;
 
-public class allCategoriesResponseDto {
+public class saveACategoryDto {
     private String name;
 
     public String getName() {
@@ -13,7 +13,7 @@ public class allCategoriesResponseDto {
 
     @Override
     public String toString() {
-        return "allCategoriesResponseDto{" +
+        return "saveACategoryDto{" +
                 "name='" + name + '\'' +
                 '}';
     }
