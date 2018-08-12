@@ -1,6 +1,6 @@
 package py.com.poraplz.cursomc.dto.category;
 
-public class saveACategoryDto {
+public class saveCategoryDto {
     private String name;
 
     public String getName() {

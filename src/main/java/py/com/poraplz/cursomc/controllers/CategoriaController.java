@@ -2,16 +2,13 @@ package py.com.poraplz.cursomc.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import py.com.poraplz.cursomc.dto.category.saveCategoryDto;
 import py.com.poraplz.cursomc.entities.Categoria;
 import py.com.poraplz.cursomc.repositories.CategoriaRepository;
-
-import java.util.ArrayList;
+import py.com.poraplz.cursomc.services.CategoriaService;
 import java.util.List;
 
 
@@ -20,25 +17,40 @@ import java.util.List;
 public class CategoriaController {
     private static final Logger logger = LoggerFactory
             .getLogger(CategoriaController.class);
+    private CategoriaRepository repo;
+    private CategoriaService service;
 
-
-
-    CategoriaRepository repo;
-    public CategoriaController(CategoriaRepository repo){
+    public CategoriaController(CategoriaRepository repo, CategoriaService service){
         this.repo = repo;
+        this.service = service;
     }
 
-
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/listar", method = RequestMethod.GET)
     public ResponseEntity<?> listar(){
-        List<Categoria> categorias = repo.findAll();
-        return  ResponseEntity.ok().body(categorias);
+        try {
+            List<Categoria> categorias = repo.findAll();
+            return ResponseEntity.ok().body(categorias);
+        }catch (Exception e){
+            logger.error("Al listar categorias");
+            logger.debug("Al listar categorias-->" + e);
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> find(@PathVariable Long id){
-        Categoria categoria = repo.getById(id);
-        return ResponseEntity.ok().body(categoria);
+    @RequestMapping(value = "get/{id}", method = RequestMethod.GET )
+    public ResponseEntity<?> getCategory(@PathVariable Long id){
+            Categoria categoria = service.getCategory(id);
+            return ResponseEntity.ok().body(categoria);
+    }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public ResponseEntity<?> save(@RequestBody saveCategoryDto dto) throws Exception {
+        Categoria categoria = new Categoria();
+        categoria.setName(dto.getName());
+        if (categoria !=null)
+            service.saveOrUpdate(categoria);
+
+        return new ResponseEntity<>("Categoria creada exitosamente", HttpStatus.OK);
     }
 
 

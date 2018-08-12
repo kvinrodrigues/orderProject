@@ -1,6 +1,5 @@
 package py.com.poraplz.cursomc.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,24 +7,23 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Categoria implements Serializable{
-    private static final long serialVersionUID = 1L;
+public class Estado implements Serializable{
+    private static final long serialVersionUID=1;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @JsonIgnore
-    @ManyToMany(mappedBy = "categories")
-    public List<Producto> products = new ArrayList<>();
 
-    public Categoria(){
+    @OneToMany(mappedBy = "state")
+    private List<Ciudad> cities = new ArrayList<>();
+
+    public Estado(){
+
     }
 
-    public Categoria(String name) {
+    public Estado(String name) {
         this.name = name;
     }
-
-
 
     public Long getId() {
         return id;
@@ -42,34 +40,26 @@ public class Categoria implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
-    public List<Producto> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Producto> products) {
-        this.products = products;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Categoria categoria = (Categoria) o;
-        return Objects.equals(id, categoria.id) &&
-                Objects.equals(name, categoria.name);
+        Estado estado = (Estado) o;
+        return Objects.equals(id, estado.id);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, name);
+        return Objects.hash(id);
     }
 
     @Override
     public String toString() {
-        return "Categoria{" +
+        return "Estado{" +
                 "name='" + name + '\'' +
-                ", products=" + products +
+                ", cities=" + cities +
                 '}';
     }
 }
