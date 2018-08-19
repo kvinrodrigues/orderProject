@@ -1,7 +1,6 @@
 
-Isquid:S1452"&Remove usage of generic wildcard type.(ê€¼¨øÿÿÿÿ8†àè¶Ò,
-Dsquid:S1452*"&Remove usage of generic wildcard type.(áò¢Ÿ8†àè¶Ò,
-Dsquid:S14526"&Remove usage of generic wildcard type.(Ò–Å“8†àè¶Ò,
-Usquid:S2589:"7Remove this expression which always evaluates to "true"(ø´ 8†àè¶Ò,
-_squid:S3457$"AFormat specifiers should be used instead of string concatenation.(¸ˆ…í8†àè¶Ò,
-_squid:S3457="AFormat specifiers should be used instead of string concatenation.(Î€›8†àè¶Ò,
+Gsquid:S1452"&Remove usage of generic wildcard type.(ê€¼¨øÿÿÿÿ8âËÀÔ,
+Bsquid:S1452"&Remove usage of generic wildcard type.(Ë±÷ª8âËÀÔ,
+Bsquid:S1452"&Remove usage of generic wildcard type.(Œ…ÉŸ8âËÀÔ,
+Ssquid:S2589"7Remove this expression which always evaluates to "true"(ø´ 8âËÀÔ,
+]squid:S3457"AFormat specifiers should be used instead of string concatenation.(¸ˆ…í8âËÀÔ,

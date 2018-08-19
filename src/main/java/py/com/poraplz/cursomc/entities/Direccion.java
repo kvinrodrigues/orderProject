@@ -1,5 +1,7 @@
 package py.com.poraplz.cursomc.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -17,10 +19,12 @@ public class Direccion implements Serializable {
     //Barrio
     private String district;
     private String cep;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="client_id")
     private Cliente client;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "city_id")
     private Ciudad city;
@@ -130,7 +134,9 @@ public class Direccion implements Serializable {
                 ", number=" + number +
                 ", complement='" + complement + '\'' +
                 ", district='" + district + '\'' +
+                ", cep='" + cep + '\'' +
                 ", client=" + client +
+                ", city=" + city +
                 '}';
     }
 }

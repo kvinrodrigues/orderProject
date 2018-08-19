@@ -1,7 +1,7 @@
 package py.com.poraplz.cursomc.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import py.com.poraplz.cursomc.entities.enums.TipoCliente;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
@@ -10,17 +10,23 @@ public class Cliente implements Serializable{
     private static final long serialVersionUID= 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String name;
     private String email;
     private String cpfOuCnpj;
     private Integer type;
+
     @OneToMany(mappedBy = "client")
     private List<Direccion> adresses = new ArrayList<>();
+
 
     @ElementCollection
     @CollectionTable(name="TELEFONO")
     private Set<String> phone = new HashSet<>();
+
+
+    @OneToMany(mappedBy = "client")
+    private List<Pedido> orders = new ArrayList<>();
 
     public Cliente() {
     }
@@ -57,16 +63,38 @@ public class Cliente implements Serializable{
         this.cpfOuCnpj = cpfOuCnpj;
     }
 
-    public TipoCliente getTipo() {
+    public TipoCliente getType() {
         return TipoCliente.toEnum(this.type);
     }
+
 
     public void setTipo(TipoCliente tipo) {
         this.type = tipo.getCod();
     }
 
-    public void setTipo(Integer tipo) {
-        this.type = tipo;
+
+    public List<Direccion> getAdresses() {
+        return adresses;
+    }
+
+    public void setAdresses(List<Direccion> adresses) {
+        this.adresses = adresses;
+    }
+
+    public Set<String> getPhone() {
+        return phone;
+    }
+
+    public void setPhone(Set<String> phone) {
+        this.phone = phone;
+    }
+
+    public List<Pedido> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Pedido> orders) {
+        this.orders = orders;
     }
 
     @Override
@@ -91,7 +119,7 @@ public class Cliente implements Serializable{
                 ", cpfOuCnpj='" + cpfOuCnpj + '\'' +
                 ", type=" + type +
                 ", adresses=" + adresses +
-                ", phones=" + phone +
+                ", phone=" + phone +
                 '}';
     }
 }

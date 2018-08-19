@@ -13,7 +13,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/categoria")
+@RequestMapping("/category")
 public class CategoriaController {
     private static final Logger logger = LoggerFactory
             .getLogger(CategoriaController.class);
@@ -38,7 +38,7 @@ public class CategoriaController {
     }
 
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET )
-    public ResponseEntity<?> getCategory(@PathVariable Long id){
+    public ResponseEntity<?> findCategoryById(@PathVariable Long id){
             Categoria categoria = service.getCategory(id);
             return ResponseEntity.ok().body(categoria);
     }

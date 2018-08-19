@@ -1,5 +1,7 @@
 package py.com.poraplz.cursomc.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ public class Estado implements Serializable{
     private Long id;
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "state")
     private List<Ciudad> cities = new ArrayList<>();
 

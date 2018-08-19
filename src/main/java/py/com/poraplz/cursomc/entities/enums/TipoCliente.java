@@ -1,6 +1,5 @@
 package py.com.poraplz.cursomc.entities.enums;
 
-import javax.persistence.Entity;
 
 public enum TipoCliente {
     PERSONA_FISICA(1,"Persona Fisica"),
@@ -23,7 +22,7 @@ public enum TipoCliente {
                 return tipoCliente;
             }
         }
-        throw new IllegalArgumentException("Codigo invalido: "+ cod);
+        throw new IllegalArgumentException("id invalido: "+ cod);
     }
 
 
