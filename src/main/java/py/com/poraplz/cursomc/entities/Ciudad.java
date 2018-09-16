@@ -1,6 +1,5 @@
 package py.com.poraplz.cursomc.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,12 +15,11 @@ public class Ciudad implements Serializable{
     private Long id;
     private String name;
 
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name= "state_id")
     private Estado state;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "city")
     private List<Direccion> adresses = new ArrayList<>();
 

@@ -24,7 +24,7 @@ public class Cliente implements Serializable{
     @CollectionTable(name="TELEFONO")
     private Set<String> phone = new HashSet<>();
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<Pedido> orders = new ArrayList<>();
 

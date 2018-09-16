@@ -10,7 +10,7 @@ import py.com.poraplz.cursomc.entities.Cliente;
 import py.com.poraplz.cursomc.services.ClienteService;
 
 @RestController
-@RequestMapping("/client")
+@RequestMapping("/cliente")
 public class ClienteController {
 
     private ClienteService service;
@@ -19,7 +19,7 @@ public class ClienteController {
         this.service = service;
     }
 
-    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> findClienteById(@PathVariable Long id){
         Cliente cliente = service.getClient(id);
         return ResponseEntity.ok().body(cliente);

@@ -3,9 +3,7 @@ package py.com.poraplz.cursomc.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public class Producto implements Serializable {
@@ -15,12 +13,15 @@ public class Producto implements Serializable {
     private Long id;
     private String name;
     private double price;
-    @JsonIgnore
     @ManyToMany
     @JoinTable(name= "producto_categoria",
             joinColumns = @JoinColumn(name = "producto_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "category_id", nullable = false))
     private List<Categoria> categories = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "id.product")
+    private Set<ItemPedido> items = new HashSet();
 
 
     public Producto() { }
@@ -28,6 +29,15 @@ public class Producto implements Serializable {
     public Producto(String name, double price) {
         this.name = name;
         this.price = price;
+    }
+
+    @JsonIgnore
+    public List<Pedido> getPedidos(){
+        List<Pedido> list = new ArrayList();
+        for (ItemPedido x: items){
+            list.add(x.getPedido());
+        }
+        return list;
     }
 
     public Long getId() {

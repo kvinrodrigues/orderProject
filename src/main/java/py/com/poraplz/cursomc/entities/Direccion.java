@@ -24,7 +24,6 @@ public class Direccion implements Serializable {
     @JoinColumn(name="client_id")
     private Cliente client;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "city_id")
     private Ciudad city;

@@ -1,5 +1,6 @@
 package py.com.poraplz.cursomc.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import py.com.poraplz.cursomc.entities.enums.EstadoPagamento;
 
 import javax.persistence.*;
@@ -13,30 +14,36 @@ public class Pago implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer state;
+    private Integer payState;
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "order_id")
     @MapsId
     private Pedido order;
 
+    @ManyToOne
+    @JoinColumn(name = "adress_id")
     private Direccion adress;
 
     public Pago() {
     }
 
-    public Pago(Integer estado, Pedido pedido, Direccion direccion) {
-        this.state = estado;
-        this.order = pedido;
-        this.adress = direccion;
+    public Pago(EstadoPagamento payState, Pedido order, Direccion adress) {
+        this.payState = payState.getValue();
+        this.order = order;
+        this.adress = adress;
     }
 
+
     public EstadoPagamento getEstado() {
-        return EstadoPagamento.toEnum(this.state);
+        return EstadoPagamento.toEnum(this.payState);
     }
 
     public void setEstado(EstadoPagamento estado) {
-        this.state= estado.getValue();
+        this.payState= estado.getValue();
     }
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -52,12 +59,5 @@ public class Pago implements Serializable{
         return Objects.hash(id);
     }
 
-    @Override
-    public String toString() {
-        return "Pago{" +
-                "estado=" + state +
-                ", pedido=" + order +
-                ", direccion=" + adress +
-                '}';
-    }
+
 }

@@ -1,5 +1,7 @@
 package py.com.poraplz.cursomc.entities;
 
+import py.com.poraplz.cursomc.entities.enums.EstadoPagamento;
+
 import javax.persistence.Entity;
 import java.util.Date;
 
@@ -12,7 +14,7 @@ public class PagoConBoleto extends Pago {
     public PagoConBoleto() {
     }
 
-    public PagoConBoleto(Integer estado, Pedido pedido, Direccion direccion, Date expirationData, Date payData) {
+    public PagoConBoleto(EstadoPagamento estado, Pedido pedido, Direccion direccion, Date expirationData, Date payData) {
         super(estado, pedido, direccion);
         this.expirationData = expirationData;
         this.payData = payData;

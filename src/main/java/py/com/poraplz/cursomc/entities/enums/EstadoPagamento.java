@@ -30,11 +30,12 @@ public enum EstadoPagamento {
     }
 
     public static EstadoPagamento toEnum(Integer id){
+
         if(id.equals(null))
             return null;
 
         for(EstadoPagamento e: EstadoPagamento.values()){
-            if(id.equals(e)){
+            if(id.equals(e.getValue())){
                 return e;
             }
         }
