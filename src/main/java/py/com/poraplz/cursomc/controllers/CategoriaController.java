@@ -2,13 +2,19 @@ package py.com.poraplz.cursomc.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import py.com.poraplz.cursomc.dto.category.saveCategoryDto;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import py.com.poraplz.cursomc.dto.category.CategoriesDto;
 import py.com.poraplz.cursomc.entities.Categoria;
 import py.com.poraplz.cursomc.repositories.CategoriaRepository;
 import py.com.poraplz.cursomc.services.CategoriaService;
+
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
 
@@ -39,19 +45,61 @@ public class CategoriaController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET )
     public ResponseEntity<?> findCategoryById(@PathVariable Long id){
-            Categoria categoria = service.getCategory(id);
+            Categoria categoria = service.findCategory(id);
             return ResponseEntity.ok().body(categoria);
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ResponseEntity<?> save(@RequestBody saveCategoryDto dto) throws Exception {
-        Categoria categoria = new Categoria();
-        categoria.setName(dto.getName());
-        if (categoria !=null)
-            service.saveOrUpdate(categoria);
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Void> save(@Valid @RequestBody CategoriesDto request){
+        Categoria categoria = service.saveOrUpdate(service.fromDtoToCategory(request));
+        URI uri = ServletUriComponentsBuilder
+                    .fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(categoria.getId())
+                    .toUri();
+        return ResponseEntity.created(uri).build();
 
-        return new ResponseEntity<>("Categoria creada exitosamente", HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/{id}",method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Categoria> update(@Valid @RequestBody CategoriesDto request, @PathVariable Long id){
+        Categoria resp = service.updateCategory(request, id);
+        return ResponseEntity.ok().body(resp);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        service.deleteCategory(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<CategoriesDto>> findAll(){
+        return ResponseEntity.ok().body(service.getAllCategories());
+    }
+
+    @RequestMapping(value = "page", method = RequestMethod.GET)
+    public ResponseEntity<Page<CategoriesDto>> categoryPage(
+                                        @RequestParam(value = "page", defaultValue = "0") Integer page,
+                                        @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
+                                        @RequestParam(value = "direction", defaultValue = "ASC") String direction,
+                                        @RequestParam(value = "orderBy", defaultValue = "name") String columnName){
+        Page<Categoria> categorias = service.filterCategory(page, linesPerPage,columnName , direction);
+        Page<CategoriesDto> categoriesDtos = categorias
+                .map(obj -> new CategoriesDto(obj));
+
+        return ResponseEntity.ok().body(categoriesDtos);
+    }
+
+
+
+
+
+
+
+
 
 
 

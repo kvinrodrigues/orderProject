@@ -1,6 +1,7 @@
 package py.com.poraplz.cursomc.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import py.com.poraplz.cursomc.dto.client.ClientDTO;
 import py.com.poraplz.cursomc.entities.enums.TipoCliente;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -31,6 +32,13 @@ public class Cliente implements Serializable{
     public Cliente() {
     }
 
+    public Cliente(ClientDTO dto){
+        Cliente client = new Cliente();
+        client.setName(dto.getName());
+        client.setEmail(dto.getEmail());
+
+    }
+
     public Cliente(String name, String email, String cpfOuCnpj, TipoCliente tipo) {
         this.name = name;
         this.email = email;
@@ -38,6 +46,17 @@ public class Cliente implements Serializable{
         this.type = tipo.getCod();
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
 
     public String getName() {
         return name;
