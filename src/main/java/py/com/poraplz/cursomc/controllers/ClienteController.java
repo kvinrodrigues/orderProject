@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import py.com.poraplz.cursomc.dto.client.ClientDTO;
+import py.com.poraplz.cursomc.dto.client.ClientNewDTO;
 import py.com.poraplz.cursomc.dto.client.ClientsDTO;
 import py.com.poraplz.cursomc.entities.Cliente;
 import py.com.poraplz.cursomc.services.ClienteService;
@@ -41,8 +42,8 @@ public class ClienteController {
 
     }
 
-    @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> save(@Valid @RequestBody ClientDTO request){
+    @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> save(@Valid @RequestBody ClientNewDTO request){
         Cliente cliente = service.saveClient(request);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()

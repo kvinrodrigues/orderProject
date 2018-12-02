@@ -5,13 +5,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import py.com.poraplz.cursomc.dto.client.ClientDTO;
+import py.com.poraplz.cursomc.dto.client.ClientNewDTO;
 import py.com.poraplz.cursomc.dto.client.ClientsDTO;
+import py.com.poraplz.cursomc.entities.Ciudad;
 import py.com.poraplz.cursomc.entities.Cliente;
+import py.com.poraplz.cursomc.entities.Direccion;
+import py.com.poraplz.cursomc.entities.enums.TipoCliente;
 import py.com.poraplz.cursomc.exceptions.DataIntegrityException;
 import py.com.poraplz.cursomc.exceptions.ObjectNotFoundException;
+import py.com.poraplz.cursomc.repositories.CiudadRepository;
 import py.com.poraplz.cursomc.repositories.ClienteRepository;
+import py.com.poraplz.cursomc.repositories.DireccionRepository;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,9 +29,13 @@ import java.util.stream.Collectors;
 public class ClienteService {
 
     private ClienteRepository repo;
+    private DireccionRepository direccionRepository;
+    private CiudadRepository ciudadRepository;
 
-    public ClienteService(ClienteRepository clt){
+    public ClienteService(ClienteRepository clt, DireccionRepository direccionRepository, CiudadRepository ciudadRepository){
         this.repo = clt;
+        this.direccionRepository = direccionRepository;
+        this.ciudadRepository = ciudadRepository;
 
     }
 
@@ -34,7 +46,9 @@ public class ClienteService {
     }
 
     public Cliente saveOrUpdate(Cliente cliente){
-        return repo.save(cliente);
+        cliente = repo.save(cliente);
+        direccionRepository.saveAll(cliente.getAdresses());
+        return cliente;
 
     }
 
@@ -43,7 +57,8 @@ public class ClienteService {
 
     }
 
-    public Cliente saveClient(ClientDTO request){
+    @Transactional
+    public Cliente saveClient(ClientNewDTO request){
         return saveOrUpdate(fromDtoToClient(request));
 
     }
@@ -68,11 +83,10 @@ public class ClienteService {
 
     public List<ClientsDTO> getAllClients(){
         List<Cliente> clients= repo.findAll();
-        List<ClientsDTO> clientsDTOS = clients
-                .stream()
+        return clients.stream()
                 .map(obj -> new ClientsDTO(obj))
                 .collect(Collectors.toList());
-        return clientsDTOS;
+
 
     }
 
@@ -86,6 +100,21 @@ public class ClienteService {
 
     public Cliente fromDtoToClient(ClientDTO dto){
         return new Cliente(dto);
+
+    }
+
+    public Cliente fromDtoToClient(ClientNewDTO dto){
+        Cliente cliente = new Cliente(dto.getName(), dto.getEmail(), dto.getCpfOuCnpj(), TipoCliente.toEnum(dto.getType()));
+        Ciudad ciudad = ciudadRepository.findById(dto.getCityId()).orElseThrow(() ->
+                new ObjectNotFoundException("No se encontro ciudad, id: "+ dto.getCityId()));
+        Direccion dir = new Direccion(dto.getStreet(), dto.getNumber(), dto.getComplement(), dto.getDistrict(), ciudad, cliente);
+        cliente.getAdresses().add(dir);
+        cliente.getPhone().add(dto.getFirstPhone());
+        if(dto.getSecondPhone() != null)
+            cliente.getPhone().add(dto.getSecondPhone());
+        if(dto.getThirdPhone() != null)
+            cliente.getPhone().add(dto.getThirdPhone());
+        return cliente;
 
     }
 

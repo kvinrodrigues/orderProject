@@ -1,6 +1,7 @@
 package py.com.poraplz.cursomc.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import py.com.poraplz.cursomc.dto.client.ClientNewDTO;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -31,14 +32,15 @@ public class Direccion implements Serializable {
     public Direccion() {
     }
 
-    public Direccion(String street, Integer number, String complement, String district, Cliente client, Ciudad ciudad) {
+    public Direccion(String street, Integer number, String complement, String district, Ciudad ciudad, Cliente cliente) {
         this.street = street;
         this.number = number;
         this.complement = complement;
         this.district = district;
-        this.client = client;
         this.city = ciudad;
+        this.client = cliente;
     }
+
 
     public Integer getId() {
         return id;
@@ -80,14 +82,6 @@ public class Direccion implements Serializable {
         this.district = district;
     }
 
-    public Cliente getClient() {
-        return client;
-    }
-
-    public void setClient(Cliente client) {
-        this.client = client;
-    }
-
     public String getCep() {
         return cep;
     }
@@ -110,6 +104,14 @@ public class Direccion implements Serializable {
 
     public void setCity(Ciudad city) {
         this.city = city;
+    }
+
+    public Cliente getClient() {
+        return client;
+    }
+
+    public void setClient(Cliente client) {
+        this.client = client;
     }
 
     @Override

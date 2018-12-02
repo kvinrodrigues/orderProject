@@ -6,6 +6,7 @@ import py.com.poraplz.cursomc.entities.Direccion;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -15,6 +16,9 @@ public class ClientDTO {
     private String name;
     @NotEmpty(message = "Campo obligatorio") @Email
     private String email;
+
+    private List<Direccion> adresses = new ArrayList<>();
+
 
 
     public ClientDTO() {
@@ -30,6 +34,14 @@ public class ClientDTO {
         this.name = name;
         this.email = email;
 
+    }
+
+    public List<Direccion> getAdresses() {
+        return adresses;
+    }
+
+    public void setAdresses(List<Direccion> adresses) {
+        this.adresses = adresses;
     }
 
     public Long getId() {

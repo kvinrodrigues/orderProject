@@ -1,6 +1,6 @@
 
-_squid:S3457)"AFormat specifiers should be used instead of string concatenation.(¸ˆ…í8î¿Üà,
-Dsquid:S1452/"&Remove usage of generic wildcard type.(Ë±÷ª8î¿Üà,
-Isquid:S1452#"&Remove usage of generic wildcard type.(ê€¼¨øÿÿÿÿ8î¿Üà,
-Dsquid:S1452H"&Remove usage of generic wildcard type.(ˆŸ‚»8î¿Üà,
-Jsquid:S1612[",Replace this lambda with a method reference.(ª’â¨8î¿Üà,
+Jsquid:S1612[",Replace this lambda with a method reference.(ª’â¨8ª³£àâ,
+Dsquid:S1452/"&Remove usage of generic wildcard type.(Ë±÷ª8ª³£àâ,
+Dsquid:S1452H"&Remove usage of generic wildcard type.(ˆŸ‚»8ª³£àâ,
+Isquid:S1452#"&Remove usage of generic wildcard type.(ê€¼¨øÿÿÿÿ8ª³£àâ,
+_squid:S3457)"AFormat specifiers should be used instead of string concatenation.(¸ˆ…í8ª³£àâ,

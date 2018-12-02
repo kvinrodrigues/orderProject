@@ -51,7 +51,7 @@ public class ItemPedidoPK implements Serializable{
 
     @Override
     public int hashCode() {
-
         return Objects.hash(order, product);
+
     }
 }

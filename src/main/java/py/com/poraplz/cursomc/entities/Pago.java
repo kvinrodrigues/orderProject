@@ -29,7 +29,7 @@ public class Pago implements Serializable{
     }
 
     public Pago(EstadoPagamento payState, Pedido order, Direccion adress) {
-        this.payState = payState.getValue();
+        this.payState = (payState == null) ? null: payState.getValue();
         this.order = order;
         this.adress = adress;
     }
