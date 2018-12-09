@@ -3,13 +3,14 @@ package py.com.poraplz.cursomc.dto.client;
 import org.hibernate.validator.constraints.Length;
 import py.com.poraplz.cursomc.entities.Cliente;
 import py.com.poraplz.cursomc.entities.Direccion;
+import py.com.poraplz.cursomc.services.validation.ClientUpdate;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
+@ClientUpdate
 public class ClientDTO {
     private Long id;
     @NotEmpty(message = "Campo obligatorio") @Length(min = 5, max = 120, message = "Longitud incorrecta")

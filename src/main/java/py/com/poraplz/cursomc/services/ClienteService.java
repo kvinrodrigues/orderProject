@@ -45,6 +45,10 @@ public class ClienteService {
 
     }
 
+    public Cliente getClientByEmail(String email){
+        return repo.getByEmail(email);
+    }
+
     public Cliente saveOrUpdate(Cliente cliente){
         cliente = repo.save(cliente);
         direccionRepository.saveAll(cliente.getAdresses());
