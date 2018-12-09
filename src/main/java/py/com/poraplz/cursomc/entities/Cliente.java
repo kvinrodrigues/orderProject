@@ -2,7 +2,6 @@ package py.com.poraplz.cursomc.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import py.com.poraplz.cursomc.dto.client.ClientDTO;
-import py.com.poraplz.cursomc.dto.client.ClientNewDTO;
 import py.com.poraplz.cursomc.entities.enums.TipoCliente;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,7 +17,7 @@ public class Cliente implements Serializable{
     private String cpfOuCnpj;
     private Integer type;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client",cascade = CascadeType.ALL)
     private List<Direccion> adresses = new ArrayList<>();
 
 

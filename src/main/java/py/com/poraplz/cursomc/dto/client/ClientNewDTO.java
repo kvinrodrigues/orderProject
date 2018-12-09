@@ -1,22 +1,33 @@
 package py.com.poraplz.cursomc.dto.client;
 
 
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
+import py.com.poraplz.cursomc.services.validation.ClientInsert;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
+@ClientInsert
 public class ClientNewDTO implements Serializable{
     private static final long serialVersionUID = 1L;
+    @NotEmpty(message = "Campo obligatorio")
+    @Length(min=5, max = 120, message = "Longitud de campo invalido")
     private String name;
+    @NotEmpty(message = "Campo obligatorio")
+    @Email(message = "Formato email invalido")
     private String email;
+    @NotEmpty(message = "Campo obligatorio")
     private String cpfOuCnpj;
     private Integer type;
-
+    @NotEmpty(message = "Campo obligatorio")
     private String street;
     private Integer number;
     private String complement;
     private String district;
+    @NotEmpty(message = "Campo obligatorio")
     private String cep;
-    @NotNull(message = "Debe introducir al menos un numero de telefono valido")
+    @NotEmpty(message = "Campo obligatorio")
     private String firstPhone;
     private String secondPhone;
     private String thirdPhone;
