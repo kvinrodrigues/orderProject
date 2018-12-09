@@ -1,27 +1,27 @@
 INSERT INTO public.categoria(name) VALUES
-                    ('Informatica'),('Escritorio'),
-                    ('Cama mesa e banho'), ('Electronicos'),
-                    ('Jardineria'), ('Decoracion');
+  ('Informatica'),('Escritorio'),
+  ('Cama mesa e banho'), ('Electronicos'),
+  ('Jardineria'), ('Decoracion'), ('Perfumeria');
 INSERT INTO public.producto (name, price) VALUES
-      ('Computadora', 2000.00),
-      ('Impresora', 800.00),
-      ('Mouse', 80.00),
-      ('Mesa de Escritorio',300.00),
-      ('Toalla', 50.00),
-      ('Colcha', 200.00),
-      ('TV true color', 1200.00),
-      ('Siega', 800.00),
-      ('Pantalla', 100.00),
-      ('Pendiente', 180.00),
-      ('Shampoo', 90.00);
+  ('Computadora', 2000.00),
+  ('Impresora', 800.00),
+  ('Mouse', 80.00),
+  ('Mesa de Escritorio',300.00),
+  ('Toalla', 50.00),
+  ('Colcha', 200.00),
+  ('TV true color', 1200.00),
+  ('Siega', 800.00),
+  ('Pantalla', 100.00),
+  ('Pendiente', 180.00),
+  ('Shampoo', 90.00);
 INSERT INTO public.producto_categoria(category_id, producto_id) VALUES
-      (1, 1), (1,2), (1,3),
-      (2,2), (2,4),
-      (3,5), (3,6),
-      (4,1), (4,2), (4,3),(4,7),
-      (5,8),
-      (6,9), (6,10),
-      (7,11);
+  (1, 1), (1,2), (1,3),
+  (2,2), (2,4),
+  (3,5), (3,6),
+  (4,1), (4,2), (4,3),(4,7),
+  (5,8),
+  (6,9), (6,10),
+  (7,11);
 
 INSERT INTO public.estado(name) VALUES ('Minas Gerais'), ('Sao Paulo');
 INSERT INTO public.ciudad(name, state_id) VALUES ('Uberlandia', 1), ('Sao Paulo', 2), ('Campinas', 2);
