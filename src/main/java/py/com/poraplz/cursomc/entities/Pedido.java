@@ -42,6 +42,14 @@ public class Pedido implements Serializable{
         this.client = client;
     }
 
+    public Double getTotalAmount(){
+        Double sum = 0.0D;
+        for(ItemPedido item:items){
+            sum += item.getSubtTotal();
+        }
+        return sum;
+    }
+
     @JsonIgnore
     public List<Producto> getProductos(){
         List<Producto> list = new ArrayList();

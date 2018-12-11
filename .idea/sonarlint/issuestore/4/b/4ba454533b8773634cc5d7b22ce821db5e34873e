@@ -1,13 +1,0 @@
-
-fsquid:S4488""HReplace "@RequestMapping(method = RequestMethod.GET)" with "@GetMapping"(›”°þ8Ó ûˆ÷,
-lsquid:S4488G"NReplace "@RequestMapping(method = RequestMethod.DELETE)" with "@DeleteMapping"(•“ÛÏ8Ó ûˆ÷,
-ksquid:S4488M"HReplace "@RequestMapping(method = RequestMethod.GET)" with "@GetMapping"(šÁÇ˜ýÿÿÿÿ8Ó ûˆ÷,
-Dsquid:S1452/"&Remove usage of generic wildcard type.(Ë±÷ª8ª³£àâ,
-Isquid:S1452#"&Remove usage of generic wildcard type.(ê€¼¨øÿÿÿÿ8ª³£àâ,
-Jsquid:S1612[",Replace this lambda with a method reference.(ª’â¨8ª³£àâ,
-fsquid:S4488S"HReplace "@RequestMapping(method = RequestMethod.GET)" with "@GetMapping"(¶àÊÝ8Ó ûˆ÷,
-msquid:S44884"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ßƒµ¢þÿÿÿÿ8Ó ûˆ÷,
-ksquid:S4488@"HReplace "@RequestMapping(method = RequestMethod.PUT)" with "@PutMapping"(é–Ûìùÿÿÿÿ8Ó ûˆ÷,
-_squid:S3457)"AFormat specifiers should be used instead of string concatenation.(¸ˆ…í8ª³£àâ,
-Dsquid:S1452H"&Remove usage of generic wildcard type.(ˆŸ‚»8ª³£àâ,
-fsquid:S4488."HReplace "@RequestMapping(method = RequestMethod.GET)" with "@GetMapping"(ðÄâÿ8Ó ûˆ÷,
