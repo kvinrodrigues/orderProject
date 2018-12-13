@@ -1,6 +1,8 @@
 package py.com.poraplz.cursomc.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import py.com.poraplz.cursomc.dto.order.OrderDto;
+import py.com.poraplz.cursomc.entities.enums.EstadoPagamento;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -37,9 +39,26 @@ public class Pedido implements Serializable{
 
     public Pedido(Date moment, Pago pay, Direccion adress, Cliente client) {
         this.moment = moment;
-        this.pay = pay;
+
         this.adress = adress;
         this.client = client;
+    }
+
+    /**
+     * Constructor para carga de valores para la insercion de pedidos
+     * @param dto: OrderDto
+     */
+    public Pedido(OrderDto dto){
+        System.out.println(dto);
+        this.pay = dto.getPay();
+        this.moment = new Date();
+        this.items = dto.getItems();
+        this.adress = dto.getAdress();
+        this.client = dto.getClient();
+        this.getPay().setAdress(adress);
+        this.getPay().setEstado(EstadoPagamento.PENDIENTE);
+        this.getPay().setOrder(this);
+
     }
 
     public Double getTotalAmount(){
@@ -130,6 +149,7 @@ public class Pedido implements Serializable{
                 ", pay=" + pay +
                 ", adress=" + adress +
                 ", client=" + client +
+                ", items=" + items +
                 '}';
     }
 }

@@ -1,7 +1,6 @@
 package py.com.poraplz.cursomc.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import py.com.poraplz.cursomc.dto.client.ClientNewDTO;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,7 +11,7 @@ public class Direccion implements Serializable {
     private static final long serialVersionUID= 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     //Barrio
     private String street;
     private Integer number;
@@ -42,11 +41,11 @@ public class Direccion implements Serializable {
     }
 
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

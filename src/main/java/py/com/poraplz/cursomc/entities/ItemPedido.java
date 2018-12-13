@@ -33,6 +33,13 @@ public class ItemPedido implements Serializable {
 
     }
 
+    public void setOrder(Pedido pedido){
+        id.setOrder(pedido);
+    }
+
+    public void setProduct(Producto product){
+        id.setProduct(product);
+    }
     public ItemPedidoPK getId() {
         return id;
     }
@@ -68,6 +75,8 @@ public class ItemPedido implements Serializable {
     public Producto getProducto(){
         return this.id.getProduct();
     }
+
+
 
     @JsonIgnore
     public Pedido getPedido(){

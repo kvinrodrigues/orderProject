@@ -1,10 +1,12 @@
 package py.com.poraplz.cursomc.entities;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import py.com.poraplz.cursomc.entities.enums.EstadoPagamento;
 
 import javax.persistence.Entity;
 
 @Entity
+@JsonTypeName("PagoConTarjeta")
 public class PagoConTarjeta extends Pago {
 
     private Integer plotsNumber;

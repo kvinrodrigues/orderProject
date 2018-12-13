@@ -1,11 +1,13 @@
 package py.com.poraplz.cursomc.entities;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import py.com.poraplz.cursomc.entities.enums.EstadoPagamento;
 
 import javax.persistence.Entity;
 import java.util.Date;
 
 @Entity
+@JsonTypeName("PagoConBoleto")
 public class PagoConBoleto extends Pago {
 
     private Date expirationData;
