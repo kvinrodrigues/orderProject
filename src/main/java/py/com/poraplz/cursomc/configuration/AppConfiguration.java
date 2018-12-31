@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import py.com.poraplz.cursomc.entities.PagoConBoleto;
 import py.com.poraplz.cursomc.entities.PagoConTarjeta;
+import py.com.poraplz.cursomc.services.EmailService;
+import py.com.poraplz.cursomc.services.MockEmailService;
 
 @Configuration
 public class AppConfiguration {
@@ -20,5 +22,10 @@ public class AppConfiguration {
             };
         };
         return builder;
+    }
+
+    @Bean
+    public EmailService emailService(){
+        return new MockEmailService();
     }
 }

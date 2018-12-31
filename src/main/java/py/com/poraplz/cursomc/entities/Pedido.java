@@ -6,6 +6,8 @@ import py.com.poraplz.cursomc.entities.enums.EstadoPagamento;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Entity
@@ -31,17 +33,12 @@ public class Pedido implements Serializable{
 
     public Pedido(){ }
 
-    public Pedido(Date moment, Direccion adress, Cliente client) {
+    public Pedido(Date moment, Pago pay, Direccion adress, Cliente client, Set<ItemPedido> items) {
         this.moment = moment;
+        this.pay = pay;
         this.adress = adress;
         this.client = client;
-    }
-
-    public Pedido(Date moment, Pago pay, Direccion adress, Cliente client) {
-        this.moment = moment;
-
-        this.adress = adress;
-        this.client = client;
+        this.items = items;
     }
 
     /**
@@ -49,7 +46,6 @@ public class Pedido implements Serializable{
      * @param dto: OrderDto
      */
     public Pedido(OrderDto dto){
-        System.out.println(dto);
         this.pay = dto.getPay();
         this.moment = new Date();
         this.items = dto.getItems();
@@ -144,12 +140,20 @@ public class Pedido implements Serializable{
 
     @Override
     public String toString() {
-        return "Pedido{" +
-                "moment=" + moment +
-                ", pay=" + pay +
-                ", adress=" + adress +
-                ", client=" + client +
-                ", items=" + items +
-                '}';
+        NumberFormat nf = NumberFormat.getNumberInstance(new Locale("es","PY"));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        final StringBuilder sb = new StringBuilder("Pedido{");
+        sb.append("Pedido numero=").append(id);
+        sb.append(", Instante: ").append(sdf.format(getMoment()));
+        sb.append(", Cliente: ").append(getClient().getName());
+        sb.append(", Estado de Pago: ").append(getPay().getEstado().getDescription());
+        sb.append("\nDetalles:\n");
+        for(ItemPedido ip : getItems()){
+            sb.append(ip.toString());
+        }
+        sb.append("Valor total: ").append(nf.format(getTotalAmount()));
+
+        sb.append('}');
+        return sb.toString();
     }
 }

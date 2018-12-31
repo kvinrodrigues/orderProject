@@ -1,9 +1,9 @@
 package py.com.poraplz.cursomc.entities.enums;
 
 public enum EstadoPagamento {
-    PENDIENTE(1,""),
-    QUITADO(2," "),
-    CANCELADO(3," ");
+    PENDIENTE(1,"Estado de pago pendiente"),
+    QUITADO(2,"Estado de pago concluido"),
+    CANCELADO(3,"Estado de pago cancelado");
 
     private int value;
     private String description;

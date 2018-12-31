@@ -89,10 +89,6 @@ public class Direccion implements Serializable {
         this.cep = cep;
     }
 
-    public Ciudad getCiudad() {
-        return city;
-    }
-
     public void setCiudad(Ciudad ciudad) {
         this.city = ciudad;
     }
