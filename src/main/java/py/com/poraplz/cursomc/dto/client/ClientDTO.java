@@ -8,6 +8,7 @@ import py.com.poraplz.cursomc.services.validation.ClientUpdate;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 @ClientUpdate
@@ -17,8 +18,10 @@ public class ClientDTO {
     private String name;
     @NotEmpty(message = "Campo obligatorio") @Email
     private String email;
-
+    @NotEmpty
     private List<Direccion> adresses = new ArrayList<>();
+    @NotEmpty
+    private Set<Integer> profiles = new HashSet<>();
 
 
 
@@ -69,5 +72,11 @@ public class ClientDTO {
         this.email = email;
     }
 
+    public Set<Integer> getProfiles() {
+        return profiles;
+    }
 
+    public void setProfiles(Set<Integer> profiles) {
+        this.profiles = profiles;
+    }
 }

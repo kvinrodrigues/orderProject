@@ -4,6 +4,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import py.com.poraplz.cursomc.dto.client.ClientDTO;
@@ -19,7 +20,6 @@ import py.com.poraplz.cursomc.repositories.CiudadRepository;
 import py.com.poraplz.cursomc.repositories.ClienteRepository;
 import py.com.poraplz.cursomc.repositories.DireccionRepository;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,11 +31,14 @@ public class ClienteService {
     private ClienteRepository repo;
     private DireccionRepository direccionRepository;
     private CiudadRepository ciudadRepository;
+    private BCryptPasswordEncoder encoder;
 
-    public ClienteService(ClienteRepository clt, DireccionRepository direccionRepository, CiudadRepository ciudadRepository){
+    public ClienteService(ClienteRepository clt, DireccionRepository direccionRepository, CiudadRepository ciudadRepository,
+    BCryptPasswordEncoder encoder){
         this.repo = clt;
         this.direccionRepository = direccionRepository;
         this.ciudadRepository = ciudadRepository;
+        this.encoder = encoder;
 
     }
 
@@ -102,13 +105,9 @@ public class ClienteService {
 
     }
 
-    public Cliente fromDtoToClient(ClientDTO dto){
-        return new Cliente(dto);
-
-    }
 
     public Cliente fromDtoToClient(ClientNewDTO dto){
-        Cliente cliente = new Cliente(dto.getName(), dto.getEmail(), dto.getCpfOuCnpj(), TipoCliente.toEnum(dto.getType()));
+        Cliente cliente = new Cliente(dto.getName(), dto.getEmail(), dto.getCpfOuCnpj(), TipoCliente.toEnum(dto.getType()), encoder.encode(dto.getPass()));
         Ciudad ciudad = ciudadRepository.findById(dto.getCityId()).orElseThrow(() ->
                 new ObjectNotFoundException("No se encontro ciudad, id: "+ dto.getCityId()));
         Direccion dir = new Direccion(dto.getStreet(), dto.getNumber(), dto.getComplement(), dto.getDistrict(), ciudad, cliente);
@@ -120,10 +119,6 @@ public class ClienteService {
             cliente.getPhone().add(dto.getThirdPhone());
         return cliente;
 
-    }
-
-    public ClientDTO toDTO(Cliente cliente){
-        return  new ClientDTO(cliente);
     }
 
 

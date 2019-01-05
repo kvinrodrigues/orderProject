@@ -27,10 +27,16 @@ INSERT INTO public.estado(name) VALUES ('Minas Gerais'), ('Sao Paulo');
 INSERT INTO public.ciudad(name, state_id) VALUES ('Uberlandia', 1), ('Sao Paulo', 2), ('Campinas', 2);
 
 
-INSERT INTO cliente(cpf_ou_cnpj, email, name, type) VALUES ('36378912377', 'unacuentamas16@gmail.com','Maria Silva',1);
+INSERT INTO cliente(cpf_ou_cnpj, email, name, type, password) VALUES ('36378912377', 'unacuentamas16@gmail.com','Maria Silva',1,'$2a$10$O5T2z3HTnMy52xoEMIjOcOs.E32A/tGXLSCLatHyeaHFbJY2lXZ6K');
+INSERT INTO cliente(cpf_ou_cnpj, email, name, type, password) VALUES ('36378912327', 'admin@gmail.com','admin',1,'$2a$10$O5T2z3HTnMy52xoEMIjOcOs.E32A/tGXLSCLatHyeaHFbJY2lXZ6K');
 INSERT INTO telefono (cliente_id, phone) VALUES (1,'93838393'),(1,'27363323');
+INSERT INTO perfiles(cliente_id, profile) VALUES (1,2);
+INSERT INTO perfiles(cliente_id, profile) VALUES (2,1);
+
 
 INSERT INTO direccion (cep,complement, district, number, street, city_id, client_id) VALUES ('38220834', 'Apto 203', 'Jardim', 300, 'Rua Flores', 1, 1);
+INSERT INTO direccion (cep,complement, district, number, street, city_id, client_id) VALUES ('38222834', 'Apto 204', 'Jardim', 300, 'Rua nose', 1, 2);
+
 
 INSERT INTO public.pedido (adress_id, moment, client_id) VALUES (1,'30/09/2017 10:32',1);
 INSERT INTO public.pedido (adress_id, moment, client_id) VALUES (1,'10/10/2017 19:35',1);

@@ -2,7 +2,6 @@ package py.com.poraplz.cursomc.dto.client;
 
 
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.br.CPF;
 import py.com.poraplz.cursomc.services.validation.ClientInsert;
 
 import javax.validation.constraints.Email;
@@ -33,6 +32,8 @@ public class ClientNewDTO implements Serializable{
     private String thirdPhone;
 
     private Long cityId;
+    @NotEmpty
+    private String pass;
 
     public ClientNewDTO() {
     }
@@ -139,5 +140,13 @@ public class ClientNewDTO implements Serializable{
 
     public void setCityId(Long cityId) {
         this.cityId = cityId;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 }
