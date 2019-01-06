@@ -4,6 +4,7 @@ package py.com.poraplz.cursomc.controllers;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import py.com.poraplz.cursomc.dto.client.ClientDTO;
@@ -26,6 +27,7 @@ public class ClienteController {
         this.service = service;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> findClienteById(@PathVariable Long id){
@@ -53,6 +55,7 @@ public class ClienteController {
         return ResponseEntity.created(uri).build();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/page", method = RequestMethod.GET,
                     produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<ClientsDTO>> filterClientPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
@@ -66,6 +69,7 @@ public class ClienteController {
 
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable  Long id){
         service.deleteClient(id);
@@ -73,6 +77,7 @@ public class ClienteController {
 
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/all", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ClientsDTO>> all(){

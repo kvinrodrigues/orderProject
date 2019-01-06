@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import py.com.poraplz.cursomc.dto.category.CategoriesDto;
@@ -49,6 +50,7 @@ public class CategoriaController {
             return ResponseEntity.ok().body(categoria);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> save(@Valid @RequestBody CategoriesDto request){
         Categoria categoria = service.saveOrUpdate(service.fromDtoToCategory(request));
@@ -61,6 +63,7 @@ public class CategoriaController {
 
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Categoria> update(@Valid @RequestBody CategoriesDto request, @PathVariable Long id){
@@ -68,12 +71,14 @@ public class CategoriaController {
         return ResponseEntity.ok().body(resp);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> delete(@PathVariable Long id){
         service.deleteCategory(id);
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/all", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CategoriesDto>> findAll(){
