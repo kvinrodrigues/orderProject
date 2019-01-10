@@ -22,6 +22,7 @@ public class ProductoController {
     @Autowired
     private ProductoService service;
 
+    //TODO validar categories vacio
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Page<ProductsDto>> categoryPage(
             @RequestParam(value = "name", defaultValue = "") String name,

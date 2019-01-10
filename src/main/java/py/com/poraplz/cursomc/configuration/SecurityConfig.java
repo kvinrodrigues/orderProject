@@ -39,8 +39,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     };
 
     public static final String[] PUBLIC_MATCHERS_POST = {
-            "/cliente/**"
-
+            "/cliente/**",
+            "/auth/**",
+            "/authentication/**"
     };
 
     @Override

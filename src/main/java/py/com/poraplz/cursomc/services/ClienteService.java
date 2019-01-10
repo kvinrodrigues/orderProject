@@ -49,7 +49,9 @@ public class ClienteService {
     }
 
     public Cliente getClientByEmail(String email){
-        return repo.getByEmail(email);
+        Optional<Cliente> client = Optional.ofNullable(repo.getByEmail(email));
+        return client.orElseThrow(() ->
+                new ObjectNotFoundException("No se encontro cliente con email: "+ email));
     }
 
     public Cliente saveOrUpdate(Cliente cliente){
@@ -93,7 +95,6 @@ public class ClienteService {
         return clients.stream()
                 .map(obj -> new ClientsDTO(obj))
                 .collect(Collectors.toList());
-
 
     }
 

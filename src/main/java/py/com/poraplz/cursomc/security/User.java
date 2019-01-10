@@ -5,7 +5,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import py.com.poraplz.cursomc.entities.enums.Perfil;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -16,16 +18,26 @@ public class User implements UserDetails{
     private String pass;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public User(){
-
+    public User() {
     }
 
-    public User(Long id, String email, String pass, Set<Perfil> authorities) {
+    public User(JWTUtil jwtUtil, Long id, String email, String pass, Set<Perfil> authorities, String forgotPassToken) {
 
         this.id = id;
         this.email = email;
         this.pass = pass;
-        this.authorities = authorities.stream().map(value -> new SimpleGrantedAuthority(value.getDescription())).collect(Collectors.toList());
+        initializeAuthorities(jwtUtil, forgotPassToken, authorities);
+
+    }
+
+    private void initializeAuthorities(JWTUtil jwtUtil, String forgotPassToken, Set<Perfil> authorities){
+        if(forgotPassToken != null && authorities.contains(Perfil.FORGOT) && jwtUtil.isValidToken(forgotPassToken)){
+            List<GrantedAuthority> permissionList = new ArrayList<>();
+            permissionList.add(new SimpleGrantedAuthority(Perfil.FORGOT.getDescription()));
+            this.authorities = permissionList;
+        }else {
+            this.authorities = authorities.stream().map(value -> new SimpleGrantedAuthority(value.getDescription())).collect(Collectors.toList());
+        }
     }
 
     public Long getId(){

@@ -3,7 +3,8 @@ package py.com.poraplz.cursomc.entities.enums;
 public enum Perfil {
 
     ADMIN(1,"ROLE_ADMIN"),
-    CLIENTE(2,"ROLE_CLIENT");
+    CLIENTE(2,"ROLE_CLIENT"),
+    FORGOT(3, "ROLE_FORGOT");
 
     private int cod;
     private String description;

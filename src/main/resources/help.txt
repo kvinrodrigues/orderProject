@@ -1,0 +1,4 @@
+	se recibe correo con el token que contiene el usuario y validez
+	el mensaje de correo debe contener la url concatenado con el token
+	en el front se obtiene el token (ActivatedRoute para obtener el dato) y el usuario a traves del token
+	se hace la llamada al servicio changePassword pasando el body el nuevoPassword(newPassword) y el "token"

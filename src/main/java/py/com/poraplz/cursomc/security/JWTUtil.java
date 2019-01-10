@@ -30,11 +30,26 @@ public class JWTUtil {
         if(claims != null){
             String userName = claims.getSubject();
             Date expirationDate = claims.getExpiration();
-            Date now = new Date(System.currentTimeMillis());
-            if(userName != null && expirationDate != null && now.before(expirationDate))
+            if(userName != null && isValidExpirationTime(expirationDate))
                 return true;
         }
         return false;
+
+    }
+
+    public boolean isValidExpirationTime(Date expirationDate){
+        Date now = new Date(System.currentTimeMillis());
+        return expirationDate != null && now.before(expirationDate);
+    }
+
+    public boolean isValidExpirationTime(String token){
+        Date expirationDate = null;
+        Date now = new Date(System.currentTimeMillis());
+        Claims claims = getClaims(token);
+        if(claims != null){
+            expirationDate = claims.getExpiration();
+        }
+        return expirationDate != null && now.before(expirationDate);
 
     }
 
@@ -47,7 +62,7 @@ public class JWTUtil {
 
     }
 
-    private Claims getClaims(String token) {
+    public Claims getClaims(String token) {
         try {
             return Jwts.parser().setSigningKey(jwtSecret.getBytes()).parseClaimsJws(token).getBody();
 

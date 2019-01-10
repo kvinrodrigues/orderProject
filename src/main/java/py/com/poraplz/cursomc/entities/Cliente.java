@@ -40,6 +40,9 @@ public class Cliente implements Serializable{
     @CollectionTable(name = "PERFILES")
     private Set<Integer> profile = new HashSet<>();
 
+    @JsonIgnore
+    private String forgotPassToken;
+
     public Cliente() {
         addProfile(Perfil.CLIENTE);
     }
@@ -58,6 +61,14 @@ public class Cliente implements Serializable{
         this.cpfOuCnpj = cpfOuCnpj;
         this.type = (tipo == null) ? null: tipo.getCod();
         this.password = pass;
+    }
+
+    public String getForgotPassToken() {
+        return forgotPassToken;
+    }
+
+    public void setForgotPassToken(String forgotPassToken) {
+        this.forgotPassToken = forgotPassToken;
     }
 
     public Long getId() {
@@ -160,15 +171,5 @@ public class Cliente implements Serializable{
         return Objects.hash(id);
     }
 
-    @Override
-    public String toString() {
-        return "Cliente{" +
-                "name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", cpfOuCnpj='" + cpfOuCnpj + '\'' +
-                ", type=" + type +
-                ", adresses=" + adresses +
-                ", phone=" + phone +
-                '}';
-    }
+
 }

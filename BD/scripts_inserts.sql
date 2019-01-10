@@ -31,7 +31,10 @@ INSERT INTO cliente(cpf_ou_cnpj, email, name, type, password) VALUES ('363789123
 INSERT INTO cliente(cpf_ou_cnpj, email, name, type, password) VALUES ('36378912327', 'admin@gmail.com','admin',1,'$2a$10$O5T2z3HTnMy52xoEMIjOcOs.E32A/tGXLSCLatHyeaHFbJY2lXZ6K');
 INSERT INTO telefono (cliente_id, phone) VALUES (1,'93838393'),(1,'27363323');
 INSERT INTO perfiles(cliente_id, profile) VALUES (1,2);
+INSERT INTO perfiles(cliente_id, profile) VALUES (1,3);
 INSERT INTO perfiles(cliente_id, profile) VALUES (2,1);
+INSERT INTO perfiles(cliente_id, profile) VALUES (2,3);
+
 
 
 INSERT INTO direccion (cep,complement, district, number, street, city_id, client_id) VALUES ('38220834', 'Apto 203', 'Jardim', 300, 'Rua Flores', 1, 1);
