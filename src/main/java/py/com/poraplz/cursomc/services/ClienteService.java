@@ -19,6 +19,7 @@ import py.com.poraplz.cursomc.exceptions.ObjectNotFoundException;
 import py.com.poraplz.cursomc.repositories.CiudadRepository;
 import py.com.poraplz.cursomc.repositories.ClienteRepository;
 import py.com.poraplz.cursomc.repositories.DireccionRepository;
+import py.com.poraplz.cursomc.security.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,13 +33,15 @@ public class ClienteService {
     private DireccionRepository direccionRepository;
     private CiudadRepository ciudadRepository;
     private BCryptPasswordEncoder encoder;
+    private UserService userService;
 
     public ClienteService(ClienteRepository clt, DireccionRepository direccionRepository, CiudadRepository ciudadRepository,
-    BCryptPasswordEncoder encoder){
+    BCryptPasswordEncoder encoder, UserService userService){
         this.repo = clt;
         this.direccionRepository = direccionRepository;
         this.ciudadRepository = ciudadRepository;
         this.encoder = encoder;
+        this.userService = userService;
 
     }
 
@@ -73,8 +76,10 @@ public class ClienteService {
     }
 
     public Page<Cliente> filterCliente(Integer page, Integer linesPerPage,String direction, String column){
+        User loggedUser = userService.getLoggedUser();
+        if(loggedUser == null) return null;
 
-        System.out.println("DIRECTION: "+ direction);
+
         PageRequest pageRequest = PageRequest.of(page, linesPerPage,
                 Sort.Direction.valueOf(direction), column);
         return repo.findAll(pageRequest);

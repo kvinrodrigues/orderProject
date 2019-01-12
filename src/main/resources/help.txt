@@ -2,3 +2,10 @@
 	el mensaje de correo debe contener la url concatenado con el token
 	en el front se obtiene el token (ActivatedRoute para obtener el dato) y el usuario a traves del token
 	se hace la llamada al servicio changePassword pasando el body el nuevoPassword(newPassword) y el "token"
+
+
+Cambiar el mensaje a algo parecido a:
+Buenas.
+Haga click en el enlace para terminar la recuperacion de la contrasena.
+http://127.0.0.1:8080/SPM-GUI/PassRecovery.seam?hash=be83ab3ecd0db773eb2dc1b0a17836a169c0bd28f0369a15cc7708499e4a5b134e4b5fbbbb602b6d35bea8460aa8f8e5
+El link estara activo por las siguientes 12 horas.
