@@ -27,7 +27,6 @@ public class ClienteController {
         this.service = service;
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> findClienteById(@PathVariable Long id){

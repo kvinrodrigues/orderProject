@@ -13,7 +13,9 @@ import py.com.poraplz.cursomc.dto.client.ClientsDTO;
 import py.com.poraplz.cursomc.entities.Ciudad;
 import py.com.poraplz.cursomc.entities.Cliente;
 import py.com.poraplz.cursomc.entities.Direccion;
+import py.com.poraplz.cursomc.entities.enums.Perfil;
 import py.com.poraplz.cursomc.entities.enums.TipoCliente;
+import py.com.poraplz.cursomc.exceptions.AuthorizationException;
 import py.com.poraplz.cursomc.exceptions.DataIntegrityException;
 import py.com.poraplz.cursomc.exceptions.ObjectNotFoundException;
 import py.com.poraplz.cursomc.repositories.CiudadRepository;
@@ -46,7 +48,12 @@ public class ClienteService {
     }
 
     public Cliente getClient(Long id){
-        Optional<Cliente> obj = repo.findById(id);
+        User loggedUser = UserService.getLoggedUser();
+        if(loggedUser == null || !loggedUser.hasRole(Perfil.ADMIN) && !id.equals(loggedUser.getId())) {
+            throw new AuthorizationException("Acceso Denegado");
+        }
+
+            Optional<Cliente> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("No se encontro cliente, id:" + id ));
 
     }
@@ -76,10 +83,6 @@ public class ClienteService {
     }
 
     public Page<Cliente> filterCliente(Integer page, Integer linesPerPage,String direction, String column){
-        User loggedUser = userService.getLoggedUser();
-        if(loggedUser == null) return null;
-
-
         PageRequest pageRequest = PageRequest.of(page, linesPerPage,
                 Sort.Direction.valueOf(direction), column);
         return repo.findAll(pageRequest);

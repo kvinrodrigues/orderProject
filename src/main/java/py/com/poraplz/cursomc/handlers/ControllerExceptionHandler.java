@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import py.com.poraplz.cursomc.dto.StandartError;
 import py.com.poraplz.cursomc.dto.ValidationError;
+import py.com.poraplz.cursomc.exceptions.AuthorizationException;
 import py.com.poraplz.cursomc.exceptions.DataIntegrityException;
 import py.com.poraplz.cursomc.exceptions.ObjectNotFoundException;
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +37,12 @@ public class ControllerExceptionHandler {
         }
         return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(validationError);
 
+    }
+
+    @ExceptionHandler(AuthorizationException.class)
+    public ResponseEntity<StandartError> authorizationException(AuthorizationException e, HttpServletRequest request){
+        StandartError sdtError = new StandartError(HttpStatus.FORBIDDEN.value(), e.getMessage(), System.currentTimeMillis());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(sdtError);
     }
 
 

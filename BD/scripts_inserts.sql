@@ -41,8 +41,8 @@ INSERT INTO direccion (cep,complement, district, number, street, city_id, client
 INSERT INTO direccion (cep,complement, district, number, street, city_id, client_id) VALUES ('38222834', 'Apto 204', 'Jardim', 300, 'Rua nose', 1, 2);
 
 
-INSERT INTO public.pedido (adress_id, moment, client_id) VALUES (1,'30/09/2017 10:32',1);
-INSERT INTO public.pedido (adress_id, moment, client_id) VALUES (1,'10/10/2017 19:35',1);
+INSERT INTO public.pedido (adress_id, moment, client_id) VALUES (1, DATE '2017/09/30', 1);
+INSERT INTO public.pedido (adress_id, moment, client_id) VALUES (1, DATE '2017/10/10', 1);
 
 
 INSERT INTO public.pago(order_id, adress_id, pay_state) VALUES (1,1,2);
@@ -50,7 +50,7 @@ INSERT INTO public.pago_con_tarjeta(plots_number, order_id) VALUES (6, 1);
 
 
 INSERT INTO public.pago(order_id, adress_id, pay_state) VALUES (2,1,1);
-INSERT INTO public.pago_con_boleto(expiration_data, pay_data, order_id) VALUES ('20/10/2017 00:00', null, 2);
+INSERT INTO public.pago_con_boleto(expiration_data, pay_data, order_id) VALUES (DATE '2017/10/20', null, 2);
 
 INSERT INTO public.item_pedido(discount, price, quantity, product_id, order_id) VALUES (0.00, 2000.00, 1, 1, 1);
 
