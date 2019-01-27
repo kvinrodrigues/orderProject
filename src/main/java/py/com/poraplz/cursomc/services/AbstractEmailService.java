@@ -32,9 +32,15 @@ public abstract class AbstractEmailService implements EmailService{
     @Override
     public void sendChangeOfPassword(String token){
         String username = jwtUtil.getUserName(token);
-        Cliente cliente = clienteService.getClientByEmail(username);
+        Cliente cliente = clienteService.getByEmail(username);
         SimpleMailMessage mailMessage = prepareSimpleMailMessageFromCliente(cliente);
         sendEmail(mailMessage);
+    }
+
+    @Override
+    public void sendNewPasswordEmail(Cliente cliente, String newPass){
+        SimpleMailMessage sm = prepareNewPasswordEmail(cliente, newPass);
+        sendEmail(sm);
     }
 
     protected SimpleMailMessage prepareSimpleMailMessageFromOrder(Pedido order){
@@ -57,6 +63,16 @@ public abstract class AbstractEmailService implements EmailService{
         sm.setText("token: " + value.getForgotPassToken());
         return sm;
 
+    }
+
+    protected SimpleMailMessage prepareNewPasswordEmail(Cliente cliente, String pass){
+        SimpleMailMessage sm = new SimpleMailMessage();
+        sm.setFrom(fromEmail);
+        sm.setTo(cliente.getEmail());
+        sm.setSubject("Pedido de cambio de password");
+        sm.setSentDate(new Date(System.currentTimeMillis()));
+        sm.setText("Nuevo password: "+ pass);
+        return sm;
     }
 
 

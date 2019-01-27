@@ -33,7 +33,7 @@ public class ClientInsertValidator implements ConstraintValidator<ClientInsert, 
 
         }
 
-        if(service.getClientByEmail(objDto.getEmail()) != null){
+        if(service.getByEmail(objDto.getEmail()) != null){
             list.add(new FieldMessage("email", "Email ya utilizado"));
         }
 
