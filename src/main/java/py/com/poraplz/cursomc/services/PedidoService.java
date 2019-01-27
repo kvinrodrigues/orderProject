@@ -1,10 +1,15 @@
 package py.com.poraplz.cursomc.services;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import py.com.poraplz.cursomc.dto.order.OrderDto;
 import py.com.poraplz.cursomc.entities.*;
+import py.com.poraplz.cursomc.exceptions.AuthorizationException;
 import py.com.poraplz.cursomc.exceptions.ObjectNotFoundException;
 import py.com.poraplz.cursomc.repositories.PedidoRepository;
+import py.com.poraplz.cursomc.security.User;
 
 import java.util.Optional;
 
@@ -18,6 +23,7 @@ public class PedidoService {
     private ItemPedidoService itemPedidoService;
     private ClienteService clienteService;
     private EmailService emailService;
+    private UserService userService;
 
     public PedidoService(PedidoRepository repo, BoletoService boletoService, PagoService pagoService,
                          ProductoService productoService, ItemPedidoService itemPedidoService,
@@ -35,6 +41,19 @@ public class PedidoService {
         Optional<Pedido> obj = dao.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("No se encontro pedido "+
                 ", Tipo: " + Pedido.class.getName()));
+    }
+
+    public Page<Pedido> ByClient(Integer page, Integer linesPerPage, String column
+            , String direction){
+        User user = UserService.getLoggedUser();
+        if(user == null) {
+            throw new AuthorizationException("Acceso denegado");
+        }
+        Cliente cliente = clienteService.getClient(user.getId());
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage,
+                Sort.Direction.valueOf(direction), column);
+        return dao.findByClient(cliente, pageRequest);
+
     }
 
     public Pedido saveOrUpdate(Pedido order){

@@ -55,7 +55,7 @@ public class ClienteController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "/page", method = RequestMethod.GET,
+    @RequestMapping(method = RequestMethod.GET,
                     produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<ClientsDTO>> filterClientPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
                                                                @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,

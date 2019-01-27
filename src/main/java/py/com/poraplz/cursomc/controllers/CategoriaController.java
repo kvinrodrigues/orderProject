@@ -85,7 +85,7 @@ public class CategoriaController {
         return ResponseEntity.ok().body(service.getAllCategories());
     }
 
-    @RequestMapping(value = "page", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Page<CategoriesDto>> categoryPage(
                                         @RequestParam(value = "page", defaultValue = "0") Integer page,
                                         @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
